@@ -1,0 +1,79 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local TextButton = Instance.new("TextButton")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BackgroundTransparency = 0.300
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.0540275052, 0, 0.198717952, 0)
+Frame.Size = UDim2.new(0, 381, 0, 219)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BackgroundTransparency = 0.500
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(0, 381, 0, 36)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "thx"
+TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BackgroundTransparency = 0.500
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.236220479, 0, 0.383561641, 0)
+TextButton.Size = UDim2.new(0, 200, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "check"
+TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextButton.TextSize = 14.000
+
+-- Scripts:
+Frame.Draggable = true
+Frame.Active = true
+Frame.Selectable = true
+
+local function JHJF_fake_script() -- TextButton.LocalScript 
+	local script = Instance.new('LocalScript', TextButton)
+
+	local function find_possessor()
+		for i,v in next, workspace:GetChildren() do
+			if v:FindFirstChild("Humanoid") then 
+				if not v:FindFirstChild("VotedOut") then
+					local Hightlight = Instance.new("Highlight")
+					Hightlight.Parent = v
+				end
+			end
+		end
+	end
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		for i,v in next, game:GetDescendants() do
+			if v:IsA("Highlight") then
+				v:Destroy()
+			end
+		end
+		wait(0.1)
+		find_possessor()
+	end)
+end
+coroutine.wrap(JHJF_fake_script)()
